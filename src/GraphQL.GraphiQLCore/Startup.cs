@@ -24,7 +24,8 @@ namespace GraphQL.GraphiQLCore
             services.AddSingleton<HumanInputType>();
             services.AddSingleton<DroidType>();
             services.AddSingleton<CharacterInterface>();
-            services.AddSingleton<ISchema>(s => new StarWarsSchema(type => (GraphType) s.GetService(type)));
+            services.AddSingleton<ISchema>(
+                s => new StarWarsSchema(new FuncDependencyResolver(type => (GraphType) s.GetService(type))));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
